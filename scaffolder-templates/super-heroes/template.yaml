@@ -1,9 +1,9 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: quarkus-stssc-jenkins-template
-  title: Securing a Quarkus Service Software Supply Chain (Jenkins)
-  description: Create a Quarkus Service built with Red Hat Trusted Application Pipeline on Jenkins
+  name: superheroes-template
+  title: Superheroes microservices 0.001
+  description: Create the source content and git repos for the Superheroes application
   tags:
     - recommended
     - java
@@ -45,6 +45,47 @@ spec:
           type: string
           description: Help others understand what this website is for.
           default: A cool quarkus app
+    - title: Superheroes database location
+      required:
+        - postgresql_database_location
+      properties:
+        postgresql_database_location:
+          title: Database location
+          type: string
+          enum:
+            - Local
+            - Remote
+      dependencies:
+        postgresql_database_location:
+          oneOf:
+            - properties:
+                postgresql_database_location:
+                  enum:
+                    - Local
+                postgresql_database_url:
+                  title: Database Location on OpenShift
+                  type: string
+                  description: Local database location
+                  default: postgresql://heroes-db:5432
+                postresql_database_name:
+                  title: Database name
+                  type: string
+                  description: The name of the local database
+                  default: heroes_database
+            - properties:
+                postgresql_database_location:
+                  enum:
+                    - Remote
+                postgresql_database_url:
+                  title: Database remote URL
+                  type: string
+                  description: Remote database URL (VM Location)
+                  default: postgresql://heroes-db.superheroes.svc.cluster.local:5432
+                postresql_database_name:
+                  title: Database name
+                  type: string
+                  description: The name of the remote database
+                  default: heroes_database
     - title: Provide Image Registry Information
       required:
         - image_registry
@@ -53,10 +94,25 @@ spec:
           title: Image Registry
           type: string
           enum:
+            - Openshift
             - Quay
       dependencies:
         image_registry:
           oneOf:
+            - properties:
+                image_registry:
+                  enum:
+                    - Openshift
+                image_host:
+                  title: Image Host
+                  type: string
+                  description: Host for storing image
+                  default: image-registry.openshift-image-registry.svc:5000
+                image_tag:
+                  title: Image Tag
+                  default: latest
+                  type: string
+                  description: Build Image tag
             - properties:
                 image_registry:
                   enum:
@@ -115,6 +171,9 @@ spec:
         url: ./skeleton
         copyWithoutTemplating:
           - .github/workflows/*
+          - rest-heroes/src/main/resources/templates/UIResource/index.html
+          - rest-narration/src/main/resources/*
+          - rest-narration/src/test/java/io/quarkus/sample/superheroes/narration/rest/*
         values:
           component_id: ${{ parameters.component_id }}
           description: ${{ parameters.description }}
@@ -168,7 +227,6 @@ spec:
           repository_host: ${{ parameters.repo.host }}
           deployment_name: quarkus-template
           user: ${{ user.entity.metadata.name }}
-          user_email: ${{ user.entity.metadata.name }}@demo.redhat.com
           verify_commits: ${{ parameters.repo.verify_commits }}
         targetPath: ./tenant-gitops
 
