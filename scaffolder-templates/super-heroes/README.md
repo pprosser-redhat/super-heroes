@@ -22,7 +22,7 @@ Have a look in the config map described below
 project : Backstage
 config map : backstage-developer-hub-app-config
 
-Around line 93 there are a number of catalog locations. Find a URL line with the target containing this path : rhdh/redhat-developer-templates. After validating that this file is present in the catalog find that file in the GitLab repo. This file will list a number of target template files in the format shown below :
+Around line 93 there are a number of catalog locations. Find a URL line with the target containing this path : summit-lab/backstage-workshops. Find that file in the GitLab repo. This file will list a number of target template files in the format shown below :
 
 ````
 apiVersion: backstage.io/v1alpha1
@@ -36,12 +36,13 @@ spec:
     - https://gitlab-gitl...
 ````
 
-Find the GitHub URL for the template that you wish to add. If it is taken from this repo quarkus-super-heroes-dh / developer-hub-template / template.yaml, then add the line below to the above location target list :
+Find the GitHub URL for the template that you wish to add. If it is taken from this repo super-heroes / scaffolder-templates / super-heroes / template.yaml, then add the line below to the above location target list :
 
-https://github.com/marrober/quarkus-super-heroes-dh/blob/main/developer-hub-template/template.yaml
+https://github.com/marrober/super-heroes/blob/main/scaffolder-templates/super-heroes/template.yaml
+
+Add the above to the Locations yaml content in gitlab.
 
 If you wait a few minutes then the template wil be visible in Developer Hub from the 'Create' menu. This then allows you to launch the template.
-
 
 ## Additional GitOps Instance
 
