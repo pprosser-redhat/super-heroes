@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: project-dance-templates
+  description: A collection of RHDH templates for Project Dance
+spec:
+  type: url
+  targets:
+     - https://gitlab-gitlab.apps.cluster-2lnms.2lnms.sandbox1697.opentlc.com/rhdh/trusted-application-pipeline-templates/blob/main/scaffolder-templates/quarkus-stssc-template/template.yaml
+     - https://gitlab-gitlab.apps.cluster-2lnms.2lnms.sandbox1697.opentlc.com/rhdh/trusted-application-pipeline-templates/blob/main/scaffolder-templates/quarkus-stssc-jenkins-template/template.yaml
