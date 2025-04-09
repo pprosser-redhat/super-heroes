@@ -88,6 +88,10 @@ spec:
       runAfter:
         - git-clone
 {{- end }}
+        - name: CONTEXT_DIR
+          value: rest-heroes
+        - name: GOALS
+          value: ["package", "-DskipTests"]
       taskRef:
         kind: ClusterTask
         name: maven

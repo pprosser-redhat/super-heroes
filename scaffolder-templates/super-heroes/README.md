@@ -17,30 +17,19 @@ Update :
 
 To add the template in this repository to a Developer Hub instance it is necessary to add a link to a file in the GitLab repo. 
 
-Have a look in the config map described below
+Update the file in gitlab : gitops / janus-idp-gitops / charts / backstage / backstage-rhtap-values.yaml
 
-project : Backstage
-config map : backstage-developer-hub-app-config
-
-Around line 93 there are a number of catalog locations. Find a URL line with the target containing this path : summit-lab/backstage-workshops. Find that file in the GitLab repo. This file will list a number of target template files in the format shown below :
+Add the following catalog rule : 
 
 ````
-apiVersion: backstage.io/v1alpha1
-kind: Location
-metadata:
-  name: showcase-templates
-  description: A collection of Backstage templates for RH Summit
-spec:
-  type: url
-  targets:
-    - https://gitlab-gitl...
+      - rules:
+        - allow:
+          - Template
+        target: https://github.com/marrober/super-heroes/blob/main/scaffolder-templates/templates-library.yaml
+        type: url
 ````
 
-Find the GitHub URL for the template that you wish to add. If it is taken from this repo super-heroes / scaffolder-templates / super-heroes / template.yaml, then add the line below to the above location target list :
-
-https://github.com/marrober/super-heroes/blob/main/scaffolder-templates/super-heroes/template.yaml
-
-Add the above to the Locations yaml content in gitlab.
+Force a hard refresh and a sync of the backstage ArgoCD application.
 
 If you wait a few minutes then the template wil be visible in Developer Hub from the 'Create' menu. This then allows you to launch the template.
 
@@ -53,7 +42,7 @@ Create a new ArgoCD instance in the openshift-gitops namespace. To do this follo
 - Select the openshift-gitops namespace in the OpenShift web UI
 - Select Installed Operators from the left hand side admininstrator menu
 - Select the Red Hat OpenShift GitOps operator
-Select the ArgoCD sub menu
+- Select the ArgoCD sub menu
 - Press the blue button marked "Create ArgoCD"
 - Give the new instance the name 'main-gitops' and press 'Create'
 
