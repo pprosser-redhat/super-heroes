@@ -11,15 +11,7 @@ spec:
   source:
     repoURL: ${{ values.destination }}
     targetRevision: HEAD
-    path: ./helm/app
-    helm:
-      parameters:
-      - name: namespace.name
-        value: ${{ values.component_id }}-dev
-      - name: environment
-        value: dev
-      - name: image.tag
-        value: latest
+    path: ./deploy/rest-heroes
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.component_id }}-dev

@@ -88,10 +88,11 @@ spec:
       runAfter:
         - git-clone
 {{- end }}
-        - name: CONTEXT_DIR
-          value: rest-heroes
-        - name: GOALS
-          value: ["package", "-DskipTests"]
+      params
+      - name: CONTEXT_DIR
+        value: rest-heroes
+      - name: GOALS
+        value: ["package", "-DskipTests"]
       taskRef:
         kind: ClusterTask
         name: maven
@@ -100,28 +101,14 @@ spec:
           workspace: source-folder
         - name: maven-settings
           workspace: maven-settings
-    - name: scan-source
-      params:
-      - name: sonarqubeHostUrl
-        value: $(params.sonarqube-host-url)
-      - name: sonarqubeProjectKey
-        value: $(params.sonarqube-project-key)
-      - name: sonarqubeProjectSecret
-        value: $(params.sonarqube-project-secret)
-      runAfter:
-      - package
-      taskRef:
-        kind: Task
-        name: scan-code
-      workspaces:
-      - name: repository
-        workspace: source-folder
     - name: build-sign-image
       params:
       - name: IMAGE
         value: $(params.output-image)
+      - name: CONTEXT
+        value: rest-heroes
       runAfter:
-      - scan-source
+      - package
       taskRef:
         kind: Task
         name: buildah
