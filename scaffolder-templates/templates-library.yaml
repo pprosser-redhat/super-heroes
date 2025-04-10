@@ -6,4 +6,4 @@ metadata:
 spec:
   type: url
   targets:
-    - https://github.com/marrober/super-heroes/blob/main/scaffolder-templates/super-heroes/template.yaml
+    - https://github.com/pprosser-redhat/super-heroes/blob/main/scaffolder-templates/super-heroes/template.yaml
