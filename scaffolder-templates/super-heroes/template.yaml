@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: superheroes-template
-  title: Superheroes microservices 0.002
+  title: Superheroes microservices 0.003
   description: Create the source content and git repos for the Superheroes application
   tags:
     - recommended
@@ -80,7 +80,7 @@ spec:
                   title: Database remote URL
                   type: string
                   description: Remote database URL (VM Location)
-                  default: postgresql://heroes-db.superheroes.svc.cluster.local:5432
+                  default: postgresql://heroes-db.superheroes.svc.cluster.local:5432/heroes_database
                 postresql_database_name:
                   title: Database name
                   type: string
@@ -228,6 +228,9 @@ spec:
           deployment_name: quarkus-template
           user: ${{ user.entity.metadata.name }}
           verify_commits: ${{ parameters.repo.verify_commits }}
+          postgresql_database_url: ${{ parameters.postgresql_database_url }}
+          postgresql_database_name: ${{ parameters.postgresql_database_name }}
+
         targetPath: ./tenant-gitops
 
     - id: publish-gitops

@@ -2,14 +2,14 @@
 {{- if ne .Values.git.verify_commits "enabled" }}
 kind: ConfigMap
 metadata:
-  name: {{ .Values.app.name }}-trigger-pipeline
+  name: {{ .Values.app.name }}-rest-heroes-trigger-pipeline
 apiVersion: v1
 data:
   trigger-pipeline.yaml: |
     apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
     metadata:
-      generateName: {{ .Values.app.name }}-run-build-
+      generateName: {{ .Values.app.name }}-rest-heroes-run-build-
       labels:
         backstage.io/kubernetes-id: {{ .Values.app.name }}
     spec:
@@ -49,7 +49,7 @@ data:
         - name: oidc-issuer
           value:  https://keycloak-rhsso{{ .Values.app.cluster }}/auth/realms/openshift
       pipelineRef:
-        name: {{ .Values.app.name }}-build
+        name: {{ .Values.app.name }}-rest-heroes-build
       serviceAccountName: pipeline
       timeout: 1h0m0s
       workspaces:
