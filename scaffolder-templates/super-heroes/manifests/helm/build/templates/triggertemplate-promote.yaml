@@ -2,7 +2,7 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: {{ .Values.app.name }}-run-promote
+  name: {{ .Values.app.name }}-rest-heroes-run-promote
 spec:
   params:
     - name: git-repo-url
@@ -25,7 +25,7 @@ spec:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
-        generateName: {{ .Values.app.name }}-run-promote-
+        generateName: {{ .Values.app.name }}-rest-heroes-run-promote-
         labels:
           backstage.io/kubernetes-id: {{ .Values.app.name }}
       spec:
@@ -66,7 +66,7 @@ spec:
           - name: tuf_mirror
             value: http://tuf.trusted-artifact-signer.svc
         pipelineRef:
-          name: {{ .Values.app.name }}-promote
+          name: {{ .Values.app.name }}-rest-heroes-promote
         serviceAccountName: image-pusher
         timeout: 1h0m0s
         workspaces:

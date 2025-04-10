@@ -2,7 +2,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: {{ .Values.app.name }}-build
+  name: {{ .Values.app.name }}-rest-heroes-build
   labels:
     type: pipeline
     backstage.io/kubernetes-id: {{ .Values.app.name }}
@@ -61,34 +61,10 @@ spec:
       workspaces:
         - name: output
           workspace: source-folder
-{{- if eq .Values.git.verify_commits "enabled" }}
-    - name: verify-commit
+    - name: package
+      runAfter:
+        - git-clone
       params:
-      - name: certificate-identity
-        value: $(params.certificate-identity)
-      - name: oidc-issuer
-        value: $(params.oidc-issuer)
-      - name: rekor-url
-        value: $(params.rekor-url)
-      - name: tuf-mirror
-        value: $(params.tuf-mirror)
-      runAfter:
-        - git-clone
-      taskRef:
-        kind: Task
-        name: verify-commit
-      workspaces:
-        - name: repository
-          workspace: source-folder
-    - name: package
-      runAfter:
-        - verify-commit
-{{- else }}
-    - name: package
-      runAfter:
-        - git-clone
-{{- end }}
-      params
       - name: CONTEXT_DIR
         value: rest-heroes
       - name: GOALS
