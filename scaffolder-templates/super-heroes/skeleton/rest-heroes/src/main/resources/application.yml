@@ -21,7 +21,7 @@ quarkus:
           endpoint: http://localhost:4317
   hibernate-orm:
     database:
-      generation: drop-and-create
+      generation: none
   http:
     cors:
       enabled: true
@@ -82,11 +82,17 @@ quarkus:
       system: "${quarkus.kubernetes.labels.system}"
 
 "%dev,test":
-  quarkus:
-    log:
-      console:
-        format: "%d{HH:mm:ss} %-5p [%c{2.}] (%t) %s%e%n"
-        level: DEBUG
+ quarkus:
+   log:
+     console:
+       format: "%d{HH:mm:ss} %-5p [%c{2.}] (%t) %s%e%n"
+       level: DEBUG
+   datasource:
+     db-kind: poatgresql
+     username: superman
+     password: superman
+     reactive:
+       url: postgresql://heroes-db.superheroes.svc.cluster.local:5432/heroes_database
 
 "%prod":
   quarkus:
