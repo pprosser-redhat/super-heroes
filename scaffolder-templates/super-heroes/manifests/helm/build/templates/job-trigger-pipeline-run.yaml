@@ -29,5 +29,5 @@ spec:
       volumes:
       - name: {{ .Values.app.name }}-script-vol
         configMap:
-          name: {{ .Values.app.name }}-trigger-pipeline
+          name: {{ .Values.app.name }}-rest-heroes-trigger-pipeline
 {{- end }}
