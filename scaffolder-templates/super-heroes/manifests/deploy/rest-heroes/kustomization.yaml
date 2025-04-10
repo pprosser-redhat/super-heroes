@@ -3,4 +3,3 @@ kind: Kustomization
 
 resources:
 - java21-openshift.yaml
-- ocp-db.yaml
