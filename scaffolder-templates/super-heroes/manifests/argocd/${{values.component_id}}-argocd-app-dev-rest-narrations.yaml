@@ -2,18 +2,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ${{ values.component_id }}-dev-build
+  name: ${{ values.component_id }}-rest-narrations-dev
   namespace: janus-argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  annotations:
-    argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: janus
   source:
     repoURL: ${{ values.destination }}
     targetRevision: HEAD
-    path: ./helm/build
+    path: ./deploy/rest-narrations
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.component_id }}-dev
@@ -27,7 +25,6 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-    - CreateNamespace=true
     - ApplyOutOfSyncOnly=true
     retry:
       limit: -1
