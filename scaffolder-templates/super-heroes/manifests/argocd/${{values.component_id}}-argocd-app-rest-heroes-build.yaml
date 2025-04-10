@@ -9,7 +9,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
 spec:
-  project: ${{ values.component_id }}-bootstrap
+  project: janus
   source:
     repoURL: ${{ values.destination }}
     targetRevision: HEAD
