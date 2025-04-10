@@ -80,7 +80,7 @@ spec:
                   title: Database remote URL
                   type: string
                   description: Remote database URL (VM Location)
-                  default: postgresql://heroes-db.superheroes.svc.cluster.local:5432
+                  default: postgresql://heroes-db.superheroes.svc.cluster.local:5432/heroes_database
                 postresql_database_name:
                   title: Database name
                   type: string
