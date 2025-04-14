@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ${{ values.component_id }}-preprod
+  name: ${{ values.component_id }}-rest-heroes-prod
   namespace: janus-argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,18 +11,10 @@ spec:
   source:
     repoURL: ${{ values.destination }}
     targetRevision: HEAD
-    path: ./helm/app
-    helm:
-      parameters:
-      - name: namespace.name
-        value: ${{ values.component_id }}-preprod
-      - name: environment
-        value: preprod
-      - name: image.tag
-        value: preprod
+    path: ./deploy/rest-heroes-prod
   destination:
     server: https://kubernetes.default.svc
-    namespace: ${{ values.component_id }}-preprod
+    namespace: ${{ values.component_id }}-prod
   ignoreDifferences:
     - group: '*'
       jqPathExpressions:
@@ -33,7 +25,6 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-    - CreateNamespace=true
     - ApplyOutOfSyncOnly=true
     retry:
       limit: -1
