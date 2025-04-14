@@ -12,6 +12,7 @@ git:
   token: ''
   webhookSecret: ''
   verify_commits: ${{ values.verify_commits }}
+  include_SBOM_ACS: ${{ values.include_SBOM_ACS }}
 
 
 image:

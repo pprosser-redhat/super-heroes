@@ -45,6 +45,11 @@ spec:
           type: string
           description: Help others understand what this website is for.
           default: A cool quarkus app
+        include_SBOM_ACS:
+          type: boolean
+          title: Whether or not to include SBOM generation and ACS.
+          default: false
+        restOfParameters:
     - title: Superheroes database location
       required:
         - postgresql_database_location
@@ -121,7 +126,7 @@ spec:
                   title: Image Host
                   type: string
                   description: Host for storing image
-                  default: quay-2lnms.apps.cluster-2lnms.2lnms.sandbox1697.opentlc.com
+                  default: quay-wl7qm.apps.cluster-wl7qm.wl7qm.sandbox1202.opentlc.com
                 image_organization:
                   title: Organization
                   type: string
@@ -144,9 +149,9 @@ spec:
               title: Repo Host
               type: string
               description: Your SCM host
-              default: gitlab-gitlab.apps.cluster-2lnms.2lnms.sandbox1697.opentlc.com
+              default: gitlab-gitlab.apps.cluster-wl7qm.wl7qm.sandbox1202.opentlc.com
               enum:
-                - gitlab-gitlab.apps.cluster-2lnms.2lnms.sandbox1697.opentlc.com
+                - gitlab-gitlab.apps.cluster-wl7qm.wl7qm.sandbox1202.opentlc.com
             owner:
               title: Repo Owner
               type: string
@@ -182,7 +187,7 @@ spec:
           artifact_id: ${{ parameters.artifact_id }}
           java_package_name: ${{ parameters.java_package_name }}
           owner: ${{ user.entity.metadata.name }}
-          cluster: .apps.cluster-2lnms.2lnms.sandbox1697.opentlc.com
+          cluster: .apps.cluster-wl7qm.wl7qm.sandbox1202.opentlc.com
           host: ${{ parameters.repo.host }}
           destination: ${{ parameters.repo.owner }}/${{ parameters.component_id }}
           quay_destination: ${{ parameters.image_organization}}/${{ parameters.component_id }}
@@ -216,13 +221,14 @@ spec:
           source_repository: https://${{ parameters.repo.host }}/${{ parameters.repo.owner }}/${{parameters.component_id}}.git
           repository_name: ${{parameters.component_id}}
           git_owner: ${{ parameters.repo.owner }}
-          cluster: .apps.cluster-2lnms.2lnms.sandbox1697.opentlc.com
+          cluster: .apps.cluster-wl7qm.wl7qm.sandbox1202.opentlc.com
           namespace: ${{ parameters.component_id }}-dev
           image_registry: ${{ parameters.image_registry }}
           image_host: ${{ parameters.image_host }}
           image_organization: ${{ parameters.image_organization }}
           image_name: ${{ parameters.component_id }}
           image_tag: ${{ parameters.image_tag }}
+          include_SBOM_ACS: ${{ parameters.include_SBOM_ACS }}
           port: 8080
           repository_host: ${{ parameters.repo.host }}
           deployment_name: quarkus-template
