@@ -222,8 +222,10 @@ spec:
       value: "$(tasks.git-clone.results.url)"
     - name: CHAINS-GIT_COMMIT
       value: "$(tasks.git-clone.results.commit)"
+{{- if .Values.git.include_SBOM_ACS }}
     - name: ACS_SCAN_OUTPUT
       value: "$(tasks.acs-image-scan.results.SCAN_OUTPUT)"
+{{- end }}
   workspaces:
     - name: source-folder
     - name: maven-settings
