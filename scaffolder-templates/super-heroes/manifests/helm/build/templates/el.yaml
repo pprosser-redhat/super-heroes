@@ -20,7 +20,7 @@ spec:
             name: cel
       name: commit-trig
       template:
-        ref: {{ .Values.app.name }}-run-build
+        ref: {{ .Values.app.name }}-rest-heroes-run-build
     - bindings:
         - kind: TriggerBinding
           ref: tag-binding-preprod
