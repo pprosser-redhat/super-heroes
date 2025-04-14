@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: superheroes-template
-  title: Superheroes microservices 0.005
+  title: Superheroes microservices 0.006
   description: Create the source content and git repos for the Superheroes application
   tags:
     - recommended
@@ -84,8 +84,8 @@ spec:
                   title: Database remote URL
                   type: string
                   description: Remote database URL (VM Location)
-                  default: postgresql://heroes-db.superheroes.svc.cluster.local:5432/heroes_database
-                postresql_database_name:
+                  default: postgresql://heroes-db.superheroes.svc.cluster.local:5432
+                postgresql_database_name:
                   title: Database name
                   type: string
                   description: The name of the remote database
