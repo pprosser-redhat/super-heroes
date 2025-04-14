@@ -4,7 +4,7 @@ This repository contains the Backstage Template used to create the Kubernetes re
 
 ## Quay repository setup
 
-Create a new quay repository called  quayadminsuperheroes-rest-heroes and make it public.
+Create a new quay repository called  quayadmin/superheroes-rest-heroes and make it public.
 
 ## Developer Hub Setup
 
