@@ -91,7 +91,7 @@ spec:
       workspaces:
       - name: source
         workspace: source-folder
-{{- if eq .Values.git.include_SBOM_ACS "true" }}
+{{- if .Values.git.include_SBOM_ACS }}
     - name: upload-sbom-to-tpa
       runAfter:
       - build-sign-image
@@ -203,7 +203,7 @@ spec:
       params:
       - name: COMPONENT_ID
         value: $(params.component-id)
-{{- if eq .Values.git.include_SBOM_ACS "true" }}
+{{- if .Values.git.include_SBOM_ACS }}
       runAfter:
       - query-rekor-signed-provenance
 {{- else }}
