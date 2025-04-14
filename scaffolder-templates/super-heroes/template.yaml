@@ -45,6 +45,11 @@ spec:
           type: string
           description: Help others understand what this website is for.
           default: A cool quarkus app
+        include_SBOM_ACS:
+          type: boolean
+          title: Whether or not to include SBOM generation and ACS.
+          default: false
+        restOfParameters:
     - title: Superheroes database location
       required:
         - postgresql_database_location
@@ -223,6 +228,7 @@ spec:
           image_organization: ${{ parameters.image_organization }}
           image_name: ${{ parameters.component_id }}
           image_tag: ${{ parameters.image_tag }}
+          include_SBOM_ACS: ${{ parameters.include_SBOM_ACS }}
           port: 8080
           repository_host: ${{ parameters.repo.host }}
           deployment_name: quarkus-template

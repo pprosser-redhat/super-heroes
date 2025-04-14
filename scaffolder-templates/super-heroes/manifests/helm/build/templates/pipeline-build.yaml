@@ -91,6 +91,7 @@ spec:
       workspaces:
       - name: source
         workspace: source-folder
+{{- if eq .Values.git.include_SBOM_ACS "true" }}
     - name: upload-sbom-to-tpa
       runAfter:
       - build-sign-image
@@ -197,12 +198,18 @@ spec:
       - acs-image-check
       - acs-image-scan
       - acs-deploy-check
+{{- end }}
     - name: resync
       params:
       - name: COMPONENT_ID
         value: $(params.component-id)
+{{- if eq .Values.git.include_SBOM_ACS "true" }}
       runAfter:
       - query-rekor-signed-provenance
+{{- else }}
+      runAfter:
+      - build-sign-image
+{{- end }}
       taskRef:
         kind: Task
         name: resync
