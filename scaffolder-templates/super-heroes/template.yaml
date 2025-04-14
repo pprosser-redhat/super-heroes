@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: superheroes-template
-  title: Superheroes microservices 0.003
+  title: Superheroes microservices 0.005
   description: Create the source content and git repos for the Superheroes application
   tags:
     - recommended
@@ -49,7 +49,6 @@ spec:
           type: boolean
           title: Whether or not to include SBOM generation and ACS.
           default: false
-        restOfParameters:
     - title: Superheroes database location
       required:
         - postgresql_database_location
